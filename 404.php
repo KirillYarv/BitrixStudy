@@ -16,5 +16,14 @@ $APPLICATION->IncludeComponent("bitrix:main.map", ".default", Array(
 	"CACHE_TIME"	=>	"36000000"
 	)
 );
+define("ERROR_404", "Y");
+
+CEventLog::Add(array(
+    "SEVERITY" => "INFO",
+    "AUDIT_TYPE_ID" => "ERROR_404",
+    "MODULE_ID" => "main",
+    "DESCRIPTION" => $APPLICATION->GetCurPage(),
+));
+
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

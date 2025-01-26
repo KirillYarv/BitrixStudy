@@ -1,5 +1,5 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-<?
+<?php if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+<?php
 IncludeTemplateLangFile(__FILE__);
 use Bitrix\Main\Application;
 use Bitrix\Main\Diag;
@@ -9,8 +9,9 @@ use Bitrix\Main\Diag;
 <html lang="<?=LANGUAGE_ID?>">
 
 <head>
-    <title><?$APPLICATION->ShowTitle()?></title>
-    <?
+    <title><?php $APPLICATION->ShowTitle()?></title>
+    <link rel="canonical" href="<?=$APPLICATION->ShowProperty("canonical")?>">
+    <?php
 	$APPLICATION->ShowHead();
 	
 	//CSS
@@ -29,9 +30,9 @@ use Bitrix\Main\Diag;
 </head>
 
 <body id="body">
-    <?$APPLICATION->ShowPanel();?>
+<?php $APPLICATION->ShowPanel();?>
 
-	<?
+<?php
 	CJSCore::Init("date");
 	CJSCore::Init("custom_main");
 
@@ -64,7 +65,7 @@ use Bitrix\Main\Diag;
 	$arUser = $rsUser->Fetch();
 
 	?>
-	<pre> <?//var_dump($arUser);?></pre>
+	<pre> <?php //var_dump($arUser);?></pre>
 	<pre><?=$_GET['YEAR']?></pre>
 	
 	<script>
@@ -130,7 +131,7 @@ use Bitrix\Main\Diag;
       	<input type="submit" value="Отправить" />
     </form>
 	<!-- <pre>
-		<?//var_dump($request);?>
+		<?php //var_dump($request);?>
 	</pre> -->
 
     <!-- wrap -->
@@ -142,13 +143,13 @@ use Bitrix\Main\Diag;
                 </div>
                 <div class="main-phone-block">
 
-                <?
+                    <?php
                 $hour = date('H');
                 if($hour >= 9 && $hour < 18){?>
                     <a href="tel:84952128506" class="phone">8 (495) 212-85-06</a>
-                <?}else {?>
+                <?php }else {?>
                     <a href="mailto:store@store.ru" class="phone">store@store.ru</a>
-                <?}?>
+                <?php }?>
 
                     <div class="shedule">время работы с 9-00 до 18-00</div>
                 </div>
@@ -185,7 +186,7 @@ use Bitrix\Main\Diag;
         </header>
         <!-- /header -->
         <!-- nav -->
-        <?$APPLICATION->IncludeComponent(
+        <?php $APPLICATION->IncludeComponent(
             "bitrix:menu",
             "top",
             Array(
@@ -204,13 +205,13 @@ use Bitrix\Main\Diag;
         );?>
         <!-- /nav -->
         <!-- breadcrumbs -->
-        <?if($APPLICATION->GetCurPage() != '/'){?>
-            <?$APPLICATION->IncludeComponent(
+        <?php if($APPLICATION->GetCurPage() != '/'){?>
+            <?php $APPLICATION->IncludeComponent(
                 "bitrix:breadcrumb",
                 "bread",
             Array()
             );?>
-        <?}?>
+        <?php }?>
         <!-- /breadcrumbs -->
         <!-- page -->
         <div class="page">
@@ -219,12 +220,13 @@ use Bitrix\Main\Diag;
                 <!-- content -->
                 <div class="content">
                     <div class="cnt">
-                        <?if($APPLICATION->GetCurPage() != '/'){?>
+                        <?php if($APPLICATION->GetCurPage() != '/'){?>
                         <header>
-                            <h1><?$APPLICATION->ShowTitle(false)?></h1>
+                            <h1><?php $APPLICATION->ShowTitle(false)?></h1>
                         </header>
-                        <?}?>
-                        <?if($APPLICATION->GetCurPage() == '/'){?>
+                        <?php }?>
+                        <?php $APPLICATION->ShowViewContent("DATA_NEWS"); ?>
+                        <?php if($APPLICATION->GetCurPage() == '/'){?>
                         
 						<p>«Мебельная компания» осуществляет производство мебели на высококлассном оборудовании с применением минимальной доли ручного труда, что позволяет обеспечить высокое качество нашей продукции. Налажен производственный процесс как массового и индивидуального характера, что с одной стороны позволяет обеспечить постоянную номенклатуру изделий и индивидуальный подход – с другой.
 						</p>
@@ -375,6 +377,6 @@ use Bitrix\Main\Diag;
 		                        </div>
 		                    </div>
 		                </div>
-		                <!-- /afisha box -->      
-                        <?}?>
+		                <!-- /afisha box -->
+                        <?php }?>
           

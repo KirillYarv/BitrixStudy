@@ -13,7 +13,11 @@
 $this->setFrameMode(true);
 ?>
 
-
+<?php
+$this->SetViewTarget("DATA_NEWS");
+echo ConvertTimeStamp(false,"FULL");
+$this->EndViewTarget();
+?>
 <?if($arParams["DISPLAY_TOP_PAGER"]):?>
 	<?=$arResult["NAV_STRING"]?><br />
 <?endif;?>

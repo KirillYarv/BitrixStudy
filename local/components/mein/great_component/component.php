@@ -7,8 +7,6 @@ if($this->startResultCache()) {
 
     $arResult['Y'] = $this->f($arParams['X']);
 
-
-
 }
 
 $this->includeComponentTemplate();

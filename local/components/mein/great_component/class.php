@@ -21,9 +21,12 @@ class GreatComponent extends CBitrixComponent {
                 $entity_data_class = $entity->getDataClass();
                 $res = $entity_data_class::getList( array('filter'=>array()) )->fetch();
                 // или так $arAllRows = $res->fetchAll();
+                $arParams['X'] =$res['UF_X'];
+            }
+            else {
+                $arParams['X'] = 3.2;
             }
         }
-        $arParams['X'] =$res['UF_X'];
         return $arParams['X'];
     }
 
