@@ -11,6 +11,7 @@ use Bitrix\Main\Diag;
 <head>
     <title><?php $APPLICATION->ShowTitle()?></title>
     <link rel="canonical" href="<?=$APPLICATION->ShowProperty("canonical")?>">
+    <meta property="specialdate" content="<?=$APPLICATION->ShowProperty("specialdate")?>">
     <?php
 	$APPLICATION->ShowHead();
 	
