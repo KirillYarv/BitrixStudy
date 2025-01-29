@@ -1,8 +1,8 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Новая страница", 
-		"/novaya-stranitsa.php", 
+		"2-70", 
+		"/exam2/2-70.php", 
 		Array(), 
 		Array(), 
 		"" 

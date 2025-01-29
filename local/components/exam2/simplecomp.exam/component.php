@@ -14,10 +14,6 @@ if(!Loader::includeModule("iblock"))
 
 $arResult = [];
 
-//echo "<pre>";
-//print_r($arParams);
-//echo "</pre>";
-
 if (!isset($arParams["NEWS_IBLOCK_ID"])){
     $arParams["NEWS_IBLOCK_ID"] = 1;
 }
@@ -130,17 +126,15 @@ if($this->StartResultCache()) {
     $arResult["ELEMENTS_PRODUCT"] = GetProductElement($arParams, $arResult["SECTIONS_PRODUCT"]);
 
     $arResult["ELEMENTS_COUNT"] = count($arResult["ELEMENTS_PRODUCT"]["ID"]);
-    echo "<pre>";
-    var_dump($arResult["NEWS"]);
-    echo "</pre>";
 
     $this->SetResultCacheKeys(array("ELEMENTS_COUNT"));
 }
 else{
+    echo "cache";
     $this->AbortResultCache();
 }
 $APPLICATION->SetTitle(GetMessage("SIMPLECOMP_EXAM2_TITLE1").$arResult["ELEMENTS_COUNT"]);
 
 
-$this->includeComponentTemplate();	
+$this->includeComponentTemplate();
 ?>
