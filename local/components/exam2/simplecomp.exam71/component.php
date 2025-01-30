@@ -17,7 +17,10 @@ function GetProduct(&$arResult, $arParams) {
     $arSelectElems = array (
         "ID",
         "IBLOCK_ID",
+        "DETAIL_PAGE_URL",
         "NAME",
+        "CODE",
+        "SORT",
         "IBLOCK_SECTION_ID",
         "PROPERTY_CLASSIFIER",
         "PROPERTY_PRICE",
@@ -29,12 +32,15 @@ function GetProduct(&$arResult, $arParams) {
         ">PROPERTY_CLASSIFIER" => 0,
         "ACTIVE" => "Y"
     );
-    $arSortElems = array (
-        "NAME" => "ASC"
+    $arSortElems = array(
+        "NAME" => "ASC",
+        "SORT" => "ASC"
     );
 
     $arResult["ELEMENTS"] = array();
     $rsElements = CIBlockElement::GetList($arSortElems, $arFilterElems, false, false, $arSelectElems);
+    $rsElements->SetUrlTemplates($arParams["TEMPLATE_DETAIL_PRODUCT"]);
+
     while($arElement = $rsElements->GetNext())
     {
         $arResult["ELEMENTS"][] = $arElement;
@@ -75,10 +81,6 @@ if($this->StartResultCache(false, $USER->GetGroups())) {
     foreach ($arResult["CLASSIFIER"] as $i => $item) {
         foreach ($arResult["ELEMENTS"] as $y => $itemY) {
             if ($itemY["PROPERTY_CLASSIFIER_VALUE"] == $item["ID"]) {
-                $mask = str_replace("#SITE#", "", $arParams["TEMPLATE_DETAIL_PRODUCT"]);
-                $mask = str_replace("#SECTION_ID#", $itemY["IBLOCK_SECTION_ID"], $mask);
-                $mask = str_replace("#ELEMENT_ID#", $itemY["ID"], $mask);
-                $itemY["URL"] = $mask;
                 $arResult["CLASSIFIER"][$i]["ELEMENTS"][] = $itemY;
             }
         }
