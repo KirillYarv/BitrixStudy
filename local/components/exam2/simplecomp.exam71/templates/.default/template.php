@@ -8,7 +8,7 @@
             <ul style='margin-left:60px; list-style-type: disc'>
                 <?php foreach ($item["ELEMENTS"] as $itemElement){?>
                     <li>
-                        <a href="<?=$itemElement["URL"]?>"><?=$itemElement["NAME"]." - ".$itemElement["PROPERTY_PRICE_VALUE"]." - ".$itemElement["PROPERTY_MATERIAL_VALUE"]." - ".$itemElement["PROPERTY_ARTNUMBER_VALUE"]?></a>
+                        <?=$itemElement["NAME"]." - ".$itemElement["PROPERTY_PRICE_VALUE"]." - ".$itemElement["PROPERTY_MATERIAL_VALUE"]." - ".$itemElement["PROPERTY_ARTNUMBER_VALUE"]?> [<a href="<?=$itemElement["URL"]?>">Ссылка</a>]
                     </li>
                 <?php }?>
             </ul>
