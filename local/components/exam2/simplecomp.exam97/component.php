@@ -15,17 +15,28 @@ if(!$arParams["NEWS_IBLOCK_ID"]) {
     $arParams["NEWS_IBLOCK_ID"] = 0;
 }
 if(!$arParams["AUTHOR_FIELD_KEY"]) {
-    $arParams["AUTHOR_FIELD_KEY"] = 0;
+    $arParams["AUTHOR_FIELD_KEY"] = "";
 }
 if(!$arParams["TYPE_AUTHOR_FIELD_KEY"]) {
-    $arParams["TYPE_AUTHOR_FIELD_KEY"] = 0;
+    $arParams["TYPE_AUTHOR_FIELD_KEY"] = "";
 }
 if(!$arParams["CACHE_TIME"]) {
     $arParams["CACHE_TIME"] = 36000000;
 }
 
-if($this->StartResultCache(false, $USER->GetGroups())) {
+$arParams["AUTHOR_FIELD_KEY"] = trim($arParams["AUTHOR_FIELD_KEY"]);
+$arParams["TYPE_AUTHOR_FIELD_KEY"] = trim($arParams["TYPE_AUTHOR_FIELD_KEY"]);
 
+
+if(!$USER->IsAuthorized()){
+    $arResult["AUTH_USER"] = false;
+
+}
+else{
+    $arResult["AUTH_USER"] = true;
+}
+
+if($this->StartResultCache(false, $USER->GetGroups()) && $USER->IsAuthorized()) {
 	//iblock elements
 	$arSelectElems = array (
 		"ID",
@@ -102,8 +113,11 @@ if($this->StartResultCache(false, $USER->GetGroups())) {
     $this->SetResultCacheKeys(["COUNT"]);
     $this->includeComponentTemplate();
 }
-else {
+else if($arResult["AUTH_USER"]) {
     $this->AbortResultCache();
+}
+else {
+    $this->includeComponentTemplate();
 }
 $APPLICATION->SetTitle(GetMessage("TITLE_71", ["#COUNT#"=>$arResult["COUNT"]]));
 
