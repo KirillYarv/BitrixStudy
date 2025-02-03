@@ -72,6 +72,17 @@ function GetProductElement($arParams, &$arSections,$FValue)
     $rsElements = CIBlockElement::GetList($arSortElems, $arFilterElems, false, false, $arSelectElems);
     while($arElement = $rsElements->GetNext())
     {
+        $arButtons = CIBlock::GetPanelButtons(
+            $arParams["PRODUCTS_IBLOCK_ID"],
+            $arElement["ID"],
+            0,
+            array()
+        );
+
+        $arElement["EDIT_LINK"] = $arButtons["edit"]["edit_element"]["ACTION_URL"];
+        $arElement["DELETE_LINK"] = $arButtons["edit"]["delete_element"]["ACTION_URL"];
+        $result["ADD_LINK"] = $arButtons["edit"]["add_element"]["ACTION_URL"];
+
         $result["ID"][] = $arElement["ID"];
         $result["ITEMS"][$arElement["ID"]] = $arElement;
 
@@ -79,6 +90,7 @@ function GetProductElement($arParams, &$arSections,$FValue)
             $result["ITEMS"][$arElement["ID"]]["NEWS_ID"][] = $newsID;
         }
     }
+
     return $result;
 }
 

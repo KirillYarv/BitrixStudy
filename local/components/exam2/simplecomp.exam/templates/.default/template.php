@@ -3,7 +3,9 @@
 <a href="<?=GetFilterOnUri("Y")?>"><?=GetMessage("FILTER_ON_MESSAGE")?></a>
 <br>
 <a href="<?=GetFilterOnUri("N")?>"><?=GetMessage("FILTER_OFF_MESSAGE")?></a>
-<?php ?>
+<?php
+$this->AddEditAction("add_element", $arResult["ELEMENTS_PRODUCT"]["ADD_LINK"], CIBlock::GetArrayByID($arParams["PRODUCTS_IBLOCK_ID"], "ELEMENT_ADD"));
+?>
 <ul style='list-style-type: disc'>
     <?php foreach ($arResult["NEWS"]["ITEMS"] as $newsItem){?>
         <li style='margin-left:30px'>
@@ -16,10 +18,15 @@
             <?php }?>
             )
         </li>
-        <ul style='list-style-type: disc'>
+
+        <ul style='list-style-type: disc' id="<?=$this->GetEditAreaId("add_element");?>">
             <?php foreach ($arResult["ELEMENTS_PRODUCT"]["ITEMS"] as $elementItem){?>
                 <?php if(in_array($newsItem["ID"], $elementItem["NEWS_ID"])) {?>
-                    <li style='margin-left:70px'>
+                    <?php
+                    $this->AddEditAction($newsItem["ID"]."_".$elementItem['ID'], $elementItem['EDIT_LINK'], CIBlock::GetArrayByID($arParams["PRODUCTS_IBLOCK_ID"], "ELEMENT_EDIT"));
+                    $this->AddDeleteAction($newsItem["ID"]."_".$elementItem['ID'], $elementItem['DELETE_LINK'], CIBlock::GetArrayByID($arParams["PRODUCTS_IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
+                    ?>
+                    <li style='margin-left:70px' id="<?=$this->GetEditAreaId($newsItem["ID"]."_".$elementItem['ID']);?>">
                         <?=$elementItem["NAME"]?> -
                         <?=$elementItem["PROPERTY_PRICE_VALUE"]?> -
                         <?=$elementItem["PROPERTY_MATERIAL_VALUE"]?> -
