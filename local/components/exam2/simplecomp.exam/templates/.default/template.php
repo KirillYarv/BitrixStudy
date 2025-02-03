@@ -1,6 +1,9 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+<?php if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <p><b><?=GetMessage("SIMPLECOMP_EXAM2_CAT_TITLE")?></b></p>
-
+<a href="<?=GetFilterOnUri("Y")?>"><?=GetMessage("FILTER_ON_MESSAGE")?></a>
+<br>
+<a href="<?=GetFilterOnUri("N")?>"><?=GetMessage("FILTER_OFF_MESSAGE")?></a>
+<?php ?>
 <ul style='list-style-type: disc'>
     <?php foreach ($arResult["NEWS"]["ITEMS"] as $newsItem){?>
         <li style='margin-left:30px'>

@@ -1,6 +1,5 @@
 <?php if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-<?=$USER->IsAuthorized()?>
-<?php if($arResult["AUTH_USER"]) {?>
+<?php if($USER->IsAuthorized()) {?>
 <!--    <p><b>--><?php //=GetMessage("SIMPLECOMP_EXAM2_CAT_TITLE")?><!--</b></p>-->
 
     <ul style='margin-left:30px; list-style-type: disc'>

@@ -11,6 +11,8 @@ if(!Loader::includeModule("iblock"))
 }
 global $USER;
 
+$userIID = $USER->GetID();
+
 if(!$arParams["NEWS_IBLOCK_ID"]) {
     $arParams["NEWS_IBLOCK_ID"] = 0;
 }
@@ -28,15 +30,7 @@ $arParams["AUTHOR_FIELD_KEY"] = trim($arParams["AUTHOR_FIELD_KEY"]);
 $arParams["TYPE_AUTHOR_FIELD_KEY"] = trim($arParams["TYPE_AUTHOR_FIELD_KEY"]);
 
 
-if(!$USER->IsAuthorized()){
-    $arResult["AUTH_USER"] = false;
-
-}
-else{
-    $arResult["AUTH_USER"] = true;
-}
-
-if($this->StartResultCache(false, $USER->GetGroups()) && $USER->IsAuthorized()) {
+if($this->StartResultCache(false, $USER->GetGroups())) {
 	//iblock elements
 	$arSelectElems = array (
 		"ID",
@@ -45,7 +39,6 @@ if($this->StartResultCache(false, $USER->GetGroups()) && $USER->IsAuthorized()) 
         "PROPERTY_{$arParams["AUTHOR_FIELD_KEY"]}",
 	);
 	$arFilterElems = array (
-        "!PROPERTY_{$arParams["AUTHOR_FIELD_KEY"]}" => $USER->GetID(),
 		"IBLOCK_ID" => $arParams["NEWS_IBLOCK_ID"],
 		"ACTIVE" => "Y"
 	);
@@ -55,11 +48,18 @@ if($this->StartResultCache(false, $USER->GetGroups()) && $USER->IsAuthorized()) 
 	
 	$arResult["NEWS"] = array();
 	$rsElements = CIBlockElement::GetList($arSortElems, $arFilterElems, false, false, $arSelectElems);
+
 	while($arElement = $rsElements->GetNext())
 	{
-		$arResult["NEWS"][] = $arElement;
+		$arResult["NEWS"][$arElement["ID"]]["ID"] = $arElement["ID"];
+        $arResult["NEWS"][$arElement["ID"]]["NAME"] = $arElement["NAME"];
+		$arResult["NEWS"][$arElement["ID"]]["DISPLAY_PROPERTY_{$arParams["AUTHOR_FIELD_KEY"]}"][] = $arElement["PROPERTY_{$arParams["AUTHOR_FIELD_KEY"]}_VALUE"];
 	}
-	
+	foreach ($arResult["NEWS"] as $key => $news) {
+        if(in_array($userIID, $news["DISPLAY_PROPERTY_{$arParams["AUTHOR_FIELD_KEY"]}"])) {
+            unset($arResult["NEWS"][$key]);
+        }
+    }
 
 	// user
 
@@ -81,7 +81,7 @@ if($this->StartResultCache(false, $USER->GetGroups()) && $USER->IsAuthorized()) 
     ); // выбираем пользователей
 	while($arUser = $rsUsers->GetNext())
 	{
-        if($arUser["ID"] == $USER->GetID()) {
+        if($arUser["ID"] == $userIID) {
             $UserIGroup = $arUser[$arParams["TYPE_AUTHOR_FIELD_KEY"]];
         }
         else {
@@ -89,7 +89,7 @@ if($this->StartResultCache(false, $USER->GetGroups()) && $USER->IsAuthorized()) 
         }
 	}
 
-
+    //Убираем группы НЕ пользователя
     foreach ($arResult["USERS"] as $i => $user) {
         if($UserIGroup != $user[$arParams["TYPE_AUTHOR_FIELD_KEY"]])
         {
@@ -97,27 +97,29 @@ if($this->StartResultCache(false, $USER->GetGroups()) && $USER->IsAuthorized()) 
         }
     }
 
+    //Добавляем новости пользователям
     $uniqueNews = [];
     foreach ($arResult["USERS"] as $i => $user) {
         foreach ($arResult["NEWS"] as $news) {
-            if ($user["ID"] == $news["PROPERTY_".$arParams["AUTHOR_FIELD_KEY"]."_VALUE"]) {
+            if (in_array($user["ID"], $news["DISPLAY_PROPERTY_".$arParams["AUTHOR_FIELD_KEY"]])) {
                 $arResult["USERS"][$i]["NEWS"][] = $news;
                 $uniqueNews[$news["ID"]] = 0;
             }
         }
     }
+
     $count = count($uniqueNews);
     unset($arResult["NEWS"]);
 
     $arResult["COUNT"] = $count;
     $this->SetResultCacheKeys(["COUNT"]);
+
     $this->includeComponentTemplate();
-}
-else if($arResult["AUTH_USER"]) {
-    $this->AbortResultCache();
+
 }
 else {
-    $this->includeComponentTemplate();
+    $this->AbortResultCache();
 }
+
 $APPLICATION->SetTitle(GetMessage("TITLE_71", ["#COUNT#"=>$arResult["COUNT"]]));
 

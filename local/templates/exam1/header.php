@@ -44,7 +44,7 @@ use Bitrix\Main\Diag;
 	echo "</br></br>";
 	echo $request->isPost();
 	echo "</br></br>";
-	echo $request->get('clear_cache');
+	echo $request->get('F');
 	echo "</br></br>";
 
 	$router = Application::getInstance()->getRouter();
