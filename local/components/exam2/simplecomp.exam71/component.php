@@ -9,6 +9,7 @@ if(!Loader::includeModule("iblock"))
 	ShowError(GetMessage("SIMPLECOMP_EXAM2_IBLOCK_MODULE_NONE"));
 	return;
 }
+$arParams["COUNT_ELEMENT"] = intval($arParams["COUNT_ELEMENT"]);
 
 function GetProduct(&$arResult, $arParams) {
     if(intval($arParams["PRODUCTS_IBLOCK_ID"]) <= 0) {return false;}
@@ -65,7 +66,15 @@ function GetClassifier(&$arResult, $arParams) {
     );
 
     $arResult["CLASSIFIER"] = array();
-    $rsElements = CIBlockElement::GetList($arSortElems, $arFilterElems, false, false, $arSelectElems);
+    $arNavParams = array(
+        "nPageSize" => $arParams["COUNT_ELEMENT"],
+        "bShowAll" => false
+    );
+
+    $rsElements = CIBlockElement::GetList($arSortElems, $arFilterElems, false, $arNavParams, $arSelectElems);
+
+    $arResult["NAV_STRING"] = $rsElements->GetPageNavString(GetMessage("NAV_STRING"));
+
     while($arElement = $rsElements->GetNext())
     {
         $arResult["CLASSIFIER"][] = $arElement;
@@ -74,7 +83,15 @@ function GetClassifier(&$arResult, $arParams) {
 }
 
 global $USER;
-if($this->StartResultCache(false, $USER->GetGroups())) {
+
+//Постраничная навигация
+$arNavParams = array(
+    "nPageSize" => $arParams["COUNT_ELEMENT"],
+    "bShowAll" => false
+);
+$arNavigation = CDBResult::GetNavParams($arNavParams);
+
+if($this->StartResultCache(false, [$USER->GetGroups(), $arNavigation])) {
     GetProduct($arResult, $arParams);
     GetClassifier($arResult, $arParams);
 

@@ -22,6 +22,12 @@ $arComponentParameters = array(
             "PARENT" => "BASE",
 			"TYPE" => "STRING",
 		),
+        "COUNT_ELEMENT" => array(
+            "NAME" => GetMessage("SIMPLECOMP_EXAM2_COUNT_ELEMENT"),
+            "PARENT" => "BASE",
+            "TYPE" => "STRING",
+            "DEFAULT" => "8"
+        ),
 
         "CACHE_TIME"  =>  ["DEFAULT"=>36000000],
         "CACHE_GROUPS" => [

@@ -20,3 +20,6 @@
         </li>
     <?php }?>
 </ul>
+<?=
+    $arResult["NAV_STRING"]
+?>
