@@ -160,7 +160,6 @@ function GetFilterOnUri($filter)
     return $uri->addParams(array("F"=>$filter));
 }
 
-
 if($this->StartResultCache(false, $FValue)) {
 
     if($FValue=="Y"){
@@ -181,6 +180,27 @@ else{
     $this->AbortResultCache();
 }
 $APPLICATION->SetTitle(GetMessage("SIMPLECOMP_EXAM2_TITLE1").$arResult["ELEMENTS_COUNT"]);
+
+
+global $USER;
+
+if ($USER->IsAuthorized()) {
+    $arButtons = CIBlock::GetPanelButtons(
+        $arParams["PRODUCTS_IBLOCK_ID"]
+    );
+
+    $this->AddIncludeAreaIcons(
+        [
+            [
+                "ID" => 101,
+                "URL" => $arButtons["submenu"]["element_list"]["ACTION_URL"],
+                "TITLE" => "ИБ в админке",
+                "IN_PARAMS_MENU" => true,
+            ]
+        ]
+    );
+}
+
 
 
 
