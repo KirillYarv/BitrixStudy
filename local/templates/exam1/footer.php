@@ -37,6 +37,9 @@ IncludeTemplateLangFile(__FILE__);
                         </div>
                     </div>
                     <!-- /side anonse -->
+                    <?php
+                        $APPLICATION->ShowViewContent("min_max_price");
+                    ?>
                     <!-- side wrap -->
                     <div class="side-wrap">
                         <div class="item-wrap">
