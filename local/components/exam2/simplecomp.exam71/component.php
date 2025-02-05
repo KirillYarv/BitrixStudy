@@ -83,6 +83,9 @@ function GetClassifier(&$arResult, $arParams) {
 }
 
 global $USER;
+global $CACHE_MANAGER;
+
+define("CACHE_DIR", "/classIblock");
 
 //Постраничная навигация
 $arNavParams = array(
@@ -91,9 +94,11 @@ $arNavParams = array(
 );
 $arNavigation = CDBResult::GetNavParams($arNavParams);
 
-if($this->StartResultCache(false, [$USER->GetGroups(), $arNavigation])) {
+if($this->StartResultCache(false, [$USER->GetGroups(), $arNavigation], CACHE_DIR)) {
     GetProduct($arResult, $arParams);
     GetClassifier($arResult, $arParams);
+
+    $CACHE_MANAGER->RegisterTag("iblock_id_".$arParams["PRODUCTS_IBLOCK_ID"]);
 
     foreach ($arResult["CLASSIFIER"] as $i => $item) {
         foreach ($arResult["ELEMENTS"] as $y => $itemY) {
