@@ -1,3 +1,4 @@
-/bitrix
+/bitrix/*
+!/bitrix/php_interface/
 /upload
 /.idea

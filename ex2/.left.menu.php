@@ -1,5 +1,12 @@
 <?
 $aMenuLinks = Array(
+    Array(
+        "2-70",
+        "/ex2/2-70.php",
+        Array(),
+        Array(),
+        ""
+    ),
 	Array(
 		"2-71", 
 		"/ex2/2-71.php", 
