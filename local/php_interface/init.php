@@ -18,3 +18,6 @@ if(file_exists($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/define_va
 if(file_exists($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/event_class.php"))
 { require_once ($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/event_class.php" ); }
 
+if(file_exists($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/agents.php"))
+{ require_once ($_SERVER["DOCUMENT_ROOT"]."/local/php_interface/include/agents.php" ); }
+

@@ -6,5 +6,7 @@
     echo "PARAM1 = ".$arResult["VARIABLES"]["PARAM1"];
     echo "<br>";
     echo "PARAM2 = ".$arResult["VARIABLES"]["PARAM2"];
+echo "<br>";
+echo date("d.m.Y H:i:s");
 ?>
 
