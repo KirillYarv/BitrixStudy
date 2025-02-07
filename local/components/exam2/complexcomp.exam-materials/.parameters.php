@@ -98,8 +98,8 @@ $arComponentParameters = array(
 			//добавили новую страницу
 			"exampage" => array(
 					"NAME" => GetMessage("EXAM_PAGE"),
-					"DEFAULT"=>"#PARAM1#/#PARAM2#/",
-					"VARIABLES"=>["PARAM1","PARAM2"]
+					"DEFAULT"=>"exam/new/#PARAM1#",
+					"VARIABLES"=>["PARAM1"]
 			),
 				
 				

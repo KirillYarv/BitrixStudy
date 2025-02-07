@@ -12,6 +12,29 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
+<?php
+$param1 = 123;
+$param2 = 456;
+echo "ссылка на страницу exampage";
+if($arParams["SEF_MODE"] == "Y") {
+    $url = $arResult["URL_TEMPLATES"]["exampage"];
+    $url = str_replace("#PARAM1#", $param1, $url);
+    if($param2){
+        $url = $url."?PARAM2=".$param2;
+    }
+}
+else {
+    $url = $arResult["URL_TEMPLATES"]["exampage"];
+    $url = str_replace("#PARAM1#", $param1, $url);
+    $url = str_replace("#PARAM2#", $param2, $url);
+}
+echo "<pre>";
+var_dump($arResult);
+echo "</pre>";
+?>
+
+<?=GetMessage("EXAM_TEXT_LINK_CP_PHOTO")?> <a href="<?=$url?>"><?=$url?></a>
+
 <?$ElementID = $APPLICATION->IncludeComponent(
 	"bitrix:photo.detail",
 	"",

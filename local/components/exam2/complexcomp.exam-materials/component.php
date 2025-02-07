@@ -21,10 +21,12 @@ $arDefaultUrlTemplates404 = array(
 	"sections_top" => "",
 	"section" => "#SECTION_ID#/",
 	"detail" => "#SECTION_ID#/#ELEMENT_ID#/",
-	"exampage" => "#PARAM1#/#PARAM2#/",
+	"exampage" => "exam/new/#PARAM1#",
 );
 
-$arDefaultVariableAliases404 = array();
+$arDefaultVariableAliases404 = array(
+    "exampage" => array("PARAM2"),
+);
 
 $arDefaultVariableAliases = array();
 
@@ -43,6 +45,7 @@ if($arParams["SEF_MODE"] == "Y")
 
 	$arUrlTemplates = CComponentEngine::MakeComponentUrlTemplates($arDefaultUrlTemplates404, $arParams["SEF_URL_TEMPLATES"]);
 	$arVariableAliases = CComponentEngine::MakeComponentVariableAliases($arDefaultVariableAliases404, $arParams["VARIABLE_ALIASES"]);
+
 
 	$engine = new CComponentEngine($this);
 	if (CModule::IncludeModule('iblock'))
@@ -114,8 +117,7 @@ else
 		$componentPage = "detail";
 	elseif(isset($arVariables["SECTION_ID"]) && intval($arVariables["SECTION_ID"]) > 0)
 		$componentPage = "section";
-    elseif((isset($arVariables["PARAM1"]) && intval($arVariables["PARAM1"]) > 0)
-        && isset($arVariables["PARAM2"]) && intval($arVariables["PARAM2"]) > 0)
+    elseif(isset($arVariables["PARAM1"]) && intval($arVariables["PARAM1"]) > 0)
 		$componentPage = "exampage";
 	elseif(isset($arVariables["SECTION_CODE"]) && strlen($arVariables["SECTION_CODE"]) > 0)
 		$componentPage = "section";
