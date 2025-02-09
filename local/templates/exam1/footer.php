@@ -29,6 +29,21 @@ IncludeTemplateLangFile(__FILE__);
                         false
                     );?>
                     <!-- /side menu -->
+                    <div id="sidebar">
+                        <div class="content-block">
+                            <div class="content-block-inner">
+                                <h3><?=GetMessage('CFT_LANG_CANGE')?></h3>
+                                <?$APPLICATION->IncludeComponent(
+                                    "bitrix:main.site.selector",
+                                    "",
+                                    Array(
+                                        "CACHE_TIME" => "3600",
+                                        "CACHE_TYPE" => "A",
+                                        "SITE_LIST" => array()
+                                    )
+                                );?><br>
+                            </div>
+                        </div>
                     <!-- side anonse -->
                     <div class="side-block side-anonse">
                         <div class="title-block"><span class="i i-title01"></span>Полезная информация!</div>
