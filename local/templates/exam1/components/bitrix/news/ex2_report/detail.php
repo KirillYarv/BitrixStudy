@@ -69,6 +69,7 @@ $ElementID = $APPLICATION->IncludeComponent(
 		"ADD_ELEMENT_CHAIN" => $arParams["ADD_ELEMENT_CHAIN"],
 		'STRICT_SECTION_CHECK' => $arParams['STRICT_SECTION_CHECK'],
         "DISPLAY_REPORT_AJAX" => $arParams["DISPLAY_REPORT_AJAX"],
+        "DISPLAY_CANONICAL" => $arParams["DISPLAY_CANONICAL"],
 	],
 	$component
 );?>

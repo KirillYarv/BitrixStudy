@@ -1,5 +1,9 @@
 <?php
 
+if($arResult["NAME_CANONICAL"]){
+    $APPLICATION->SetPageProperty("canonical", $arResult["NAME_CANONICAL"]);
+}
+
 const IBLOCK_REPORT = 6;
 if ($_REQUEST["report"]=="Y" && $_REQUEST["news_id"]) {
     global $USER;
