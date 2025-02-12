@@ -12,6 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
+
 <div class="news-list">
 <?if($arParams["DISPLAY_TOP_PAGER"]):?>
 	<?=$arResult["NAV_STRING"]?><br />
@@ -78,14 +79,11 @@ $this->setFrameMode(true);
 			<?endif?>
 			</small><br />
 		<?endforeach;?>
-        <?php if ($arItem["DISPLAY_REPORT_AJAX"]){
-            echo "<br>";
-            //echo "<pre>";
-            echo "<a href=\"".$arItem["DISPLAY_REPORT_AJAX"]."\">fdfdsfds</a>";
-            //echo "</pre>";
-        }?>
 	</p>
 <?endforeach;?>
+
+
+
 <?if($arParams["DISPLAY_BOTTOM_PAGER"]):?>
 	<br /><?=$arResult["NAV_STRING"]?>
 <?endif;?>

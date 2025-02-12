@@ -3,7 +3,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Новости");
 ?><?$APPLICATION->IncludeComponent(
 	"bitrix:news", 
-	"2-34", 
+	"ex2_report", 
 	array(
 		"IBLOCK_TYPE" => "news",
 		"IBLOCK_ID" => "1",
@@ -76,7 +76,7 @@ $APPLICATION->SetTitle("Новости");
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000000",
 		"PAGER_SHOW_ALL" => "N",
 		"AJAX_OPTION_ADDITIONAL" => "",
-		"COMPONENT_TEMPLATE" => "2-34",
+		"COMPONENT_TEMPLATE" => "ex2_report",
 		"USE_REVIEW" => "N",
 		"SET_LAST_MODIFIED" => "N",
 		"ADD_ELEMENT_CHAIN" => "N",

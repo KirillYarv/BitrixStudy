@@ -110,7 +110,6 @@ $APPLICATION->IncludeComponent(
 		"HIDE_LINK_WHEN_NO_DETAIL" => $arParams["HIDE_LINK_WHEN_NO_DETAIL"],
 		"CHECK_DATES" => $arParams["CHECK_DATES"],
 		"DISPLAY_SPECIALDATE" => $arParams["DISPLAY_SPECIALDATE"],
-		"DISPLAY_REPORT_AJAX" => $arParams["DISPLAY_REPORT_AJAX"],
 	],
 	$component
 );

@@ -34,14 +34,17 @@ IncludeTemplateLangFile(__FILE__);
                             <div class="content-block-inner">
                                 <h3><?=GetMessage('CFT_LANG_CANGE')?></h3>
                                 <?$APPLICATION->IncludeComponent(
-                                    "bitrix:main.site.selector",
-                                    "",
-                                    Array(
-                                        "CACHE_TIME" => "3600",
-                                        "CACHE_TYPE" => "A",
-                                        "SITE_LIST" => array()
-                                    )
-                                );?><br>
+	"bitrix:main.site.selector", 
+	"ex2_dropdown", 
+	array(
+		"CACHE_TIME" => "3600",
+		"CACHE_TYPE" => "A",
+		"SITE_LIST" => array(
+		),
+		"COMPONENT_TEMPLATE" => "ex2_dropdown"
+	),
+	false
+);?><br>
                             </div>
                         </div>
                     <!-- side anonse -->
