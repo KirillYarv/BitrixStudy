@@ -29,8 +29,38 @@ $this->setFrameMode(true);
 	<?endif;?>
 	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
         <h3><?=$arResult["NAME"]?></h3>
-        <a class="report_ref" href="./?report=Y&news_id=<?=$arResult["ID"]?>"><?=GetMessage("REPORT_MESSAGE")?></a>
+
+    <?php if ($arParams["DISPLAY_REPORT_AJAX"]=="Y"){?>
+    <?php
+    CJSCore::Init(array("ajax", "jquery"));
+    ?>
+
+        <script>
+            BX.ready(()=> {
+                BX('report_ref').onclick = () => {
+
+                    BX.ajax.post(
+                        ".",
+                        {
+                            'ajax': 1,
+                            'report': 'Y',
+                            'news_id': <?=$arResult["ID"]?>
+                        },
+                        function (data) {
+                            BX('report_message').innerHTML = data;
+                        }
+                    );
+                    return false;
+                }
+            });
+        </script>
+        <a id="report_ref" href="#"><?=GetMessage("REPORT_MESSAGE")?></a>
+
+    <?php } else {?>
+        <a id="report_ref" href="./?report=Y&news_id=<?=$arResult["ID"]?>"><?=GetMessage("REPORT_MESSAGE")?></a>
+    <?php }?>
         <p id="report_message" style='color: green'></p>
+
 	<?endif;?>
 	<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && ($arResult["FIELDS"]["PREVIEW_TEXT"] ?? '')):?>
 		<p><?=$arResult["FIELDS"]["PREVIEW_TEXT"];unset($arResult["FIELDS"]["PREVIEW_TEXT"]);?></p>
@@ -95,26 +125,3 @@ $this->setFrameMode(true);
 	}
 	?>
 </div>
-<?php if ($arParams["DISPLAY_REPORT_AJAX"]=="Y"){?>
-    <?php
-    CJSCore::Init(array("jquery"));
-    ?>
-
-    <script>
-        $(function (){
-            $('.report_ref').click(function (){
-
-                $.post(
-                    ".",
-                    'ajax=1&report=Y&news_id=<?=$arResult["ID"]?>',
-                    function (data){
-                        $('#report_message').html(data).show();
-                    }
-                );
-                return false;
-            });
-        });
-    </script>
-
-
-<?php }?>

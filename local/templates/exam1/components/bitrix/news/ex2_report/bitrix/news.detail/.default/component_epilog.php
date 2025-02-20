@@ -35,19 +35,15 @@ if ($_REQUEST["report"]=="Y" && $_REQUEST["news_id"]) {
 
         if ($_REQUEST["ajax"]==1){
             $APPLICATION->RestartBuffer();
-            ?>
-            <script>
-                $('#report_message').text("<?=GetMessage("SUCCESS_REPORT", ["#NEWS_ID#"=>$REPORT_ID])?>");
-            </script>
-            <?php
 
+            echo GetMessage("SUCCESS_REPORT", ["#NEWS_ID#"=>$REPORT_ID]);
 
             die();
         }
         else{
             ?>
             <script>
-                $('#report_message').text("<?=GetMessage("SUCCESS_REPORT", ["#NEWS_ID#"=>$REPORT_ID])?>");
+                BX('report_message').innerText = "<?=GetMessage("SUCCESS_REPORT", ["#NEWS_ID#"=>$REPORT_ID])?>";
             </script>
             <?php
         }
@@ -56,19 +52,15 @@ if ($_REQUEST["report"]=="Y" && $_REQUEST["news_id"]) {
         echo "<p style='color: red'>" . GetMessage("ERROR_REPORT", ["#ERROR#" => $el->LAST_ERROR]) . "</p>";
         if ($_REQUEST["ajax"]==1){
             $APPLICATION->RestartBuffer();
-            ?>
-            <script>
-                $('#report_message').text("<?=GetMessage("ERROR_REPORT", ["#ERROR#" => $el->LAST_ERROR])?>");
-            </script>
-            <?php
 
+            echo GetMessage("ERROR_REPORT", ["#ERROR#" => $el->LAST_ERROR]);
 
             die();
         }
         else{
             ?>
             <script>
-                $('#report_message').text("<?=GetMessage("ERROR_REPORT", ["#ERROR#" => $el->LAST_ERROR])?>");
+                BX('report_message').innerText("<?=GetMessage("ERROR_REPORT", ["#ERROR#" => $el->LAST_ERROR])?>");
             </script>
             <?php
         }
