@@ -2,11 +2,11 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
 $arComponentDescription = array(
-	"NAME" => GetMessage("COMP_EX2_NAME"),
+	"NAME" => GetMessage("MEIN_TESTING_COMP_NAME"),
 	"CACHE_PATH" => "Y",
     "PATH" => array(
-        "ID" => "exam2",
-        "NAME" => GetMessage("COMP_EX2_DIR"),
+        "ID" => "testing",
+        "NAME" => GetMessage("MEIN_TESTING_COMP_DIR"),
     ),
 );
 ?>
