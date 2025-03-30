@@ -101,7 +101,8 @@ $this->setFrameMode(true);
     ?>
 
     <script>
-        $(function (){
+        console.log("fds");
+        BX.ready(function (){
             $('.report_ref').click(function (){
 
                 $.post(

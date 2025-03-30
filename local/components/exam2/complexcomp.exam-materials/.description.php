@@ -7,7 +7,7 @@ $arComponentDescription = array(
 	"COMPLEX" => "Y",
 	"PATH" => array(
 		"ID" => "exam2",
-		"NAME" => GetMessage("IBLOCK_PHOTO_SECTION"),
+		"NAME" => GetMessage("EX2_DIR"),
 	),
 );
 ?>

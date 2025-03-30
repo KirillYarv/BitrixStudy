@@ -90,6 +90,8 @@ $APPLICATION->SetTitle("Новости");
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"SHOW_404" => "N",
 		"MESSAGE_404" => "",
+		"DISPLAY_REPORT_AJAX" => "Y",
+		"DISPLAY_CANONICAL" => "7",
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "",

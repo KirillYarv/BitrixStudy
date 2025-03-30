@@ -6,7 +6,10 @@ if($this->startResultCache()) {
     $arParams['X'] = doubleval($arParams['X']);
 
     $arResult['Y'] = $this->f($arParams['X']);
-
+    $this->SetResultCacheKeys(["Y"]);
+    $this->includeComponentTemplate();
+}
+else{
+    $this->AbortResultCahce();
 }
 
-$this->includeComponentTemplate();

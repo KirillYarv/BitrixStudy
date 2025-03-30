@@ -22,6 +22,13 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
+		"Тестовый", 
+		"/ex2/test/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Комплексный компонент", 
 		"/ex2/complexcomponent.php", 
 		Array(), 
