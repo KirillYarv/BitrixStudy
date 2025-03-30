@@ -1,4 +1,4 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<?php if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 /** @var array $arParams */
 /** @var array $arResult */
 /** @global CMain $APPLICATION */
@@ -13,7 +13,7 @@
 $this->setFrameMode(true);
 ?>
 <div class="news-detail">
-	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
+    <?php if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
 		<img
 			class="detail_picture"
 			border="0"
@@ -23,60 +23,91 @@ $this->setFrameMode(true);
 			alt="<?=$arResult["DETAIL_PICTURE"]["ALT"]?>"
 			title="<?=$arResult["DETAIL_PICTURE"]["TITLE"]?>"
 			/>
-	<?endif?>
-	<?if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
+    <?php endif?>
+    <?php if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
 		<span class="news-date-time"><?=$arResult["DISPLAY_ACTIVE_FROM"]?></span>
-	<?endif;?>
-	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
+    <?php endif;?>
+    <?php if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
         <h3><?=$arResult["NAME"]?></h3>
-        <a class="report_ref" href="./?report=Y&news_id=<?=$arResult["ID"]?>"><?=GetMessage("REPORT_MESSAGE")?></a>
+
+    <?php if ($arParams["DISPLAY_REPORT_AJAX"]=="Y"){?>
+    <?php
+    CJSCore::Init(array("ajax", "jquery"));
+    ?>
+
+        <script>
+            BX.ready(()=> {
+                BX('report_ref').onclick = () => {
+
+                    BX.ajax.post(
+                        ".",
+                        {
+                            'ajax': 1,
+                            'report': 'Y',
+                            'news_id': <?=$arResult["ID"]?>
+                        },
+                        function (data) {
+                            BX('report_message').innerHTML = data;
+                        }
+                    );
+                    return false;
+                }
+            });
+        </script>
+        <a id="report_ref" href="#"><?=GetMessage("REPORT_MESSAGE")?></a>
+
+    <?php } else {?>
+        <a id="report_ref" href="./?report=Y&news_id=<?=$arResult["ID"]?>"><?=GetMessage("REPORT_MESSAGE")?></a>
+    <?php }?>
         <p id="report_message" style='color: green'></p>
-	<?endif;?>
-	<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && ($arResult["FIELDS"]["PREVIEW_TEXT"] ?? '')):?>
+
+    <?php endif;?>
+    <?php if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && ($arResult["FIELDS"]["PREVIEW_TEXT"] ?? '')):?>
 		<p><?=$arResult["FIELDS"]["PREVIEW_TEXT"];unset($arResult["FIELDS"]["PREVIEW_TEXT"]);?></p>
-	<?endif;?>
-	<?if($arResult["NAV_RESULT"]):?>
-		<?if($arParams["DISPLAY_TOP_PAGER"]):?><?=$arResult["NAV_STRING"]?><br /><?endif;?>
-		<?echo $arResult["NAV_TEXT"];?>
-		<?if($arParams["DISPLAY_BOTTOM_PAGER"]):?><br /><?=$arResult["NAV_STRING"]?><?endif;?>
-	<?elseif($arResult["DETAIL_TEXT"] <> ''):?>
-		<?echo $arResult["DETAIL_TEXT"];?>
-	<?else:?>
-		<?echo $arResult["PREVIEW_TEXT"];?>
-	<?endif?>
+    <?php endif;?>
+    <?php if($arResult["NAV_RESULT"]):?>
+        <?php if($arParams["DISPLAY_TOP_PAGER"]):?><?=$arResult["NAV_STRING"]?><br /><?php endif;?>
+        <?php echo $arResult["NAV_TEXT"];?>
+        <?php if($arParams["DISPLAY_BOTTOM_PAGER"]):?><br /><?=$arResult["NAV_STRING"]?><?php endif;?>
+    <?php elseif($arResult["DETAIL_TEXT"] <> ''):?>
+        <?php echo $arResult["DETAIL_TEXT"];?>
+    <?php else:?>
+        <?php echo $arResult["PREVIEW_TEXT"];?>
+    <?php endif?>
 	<div style="clear:both"></div>
 	<br />
-	<?foreach($arResult["FIELDS"] as $code=>$value):
+    <?php foreach($arResult["FIELDS"] as $code=> $value):
 		if ('PREVIEW_PICTURE' == $code || 'DETAIL_PICTURE' == $code)
 		{
-			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?
+			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?php
 			if (!empty($value) && is_array($value))
 			{
-				?><img border="0" src="<?=$value["SRC"]?>" width="<?=$value["WIDTH"]?>" height="<?=$value["HEIGHT"]?>"><?
+				?><img border="0" src="<?=$value["SRC"]?>" width="<?=$value["WIDTH"]?>" height="<?=$value["HEIGHT"]?>"><?php
 			}
 		}
 		else
 		{
-			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?=$value;?><?
+			?><?=GetMessage("IBLOCK_FIELD_".$code)?>:&nbsp;<?=$value;?><?php
 		}
 		?><br />
-	<?endforeach;
+    <?php endforeach;
 	foreach($arResult["DISPLAY_PROPERTIES"] as $pid=>$arProperty):?>
 
 		<?=$arProperty["NAME"]?>:&nbsp;
-		<?if(is_array($arProperty["DISPLAY_VALUE"])):?>
+        <?php if(is_array($arProperty["DISPLAY_VALUE"])):?>
 			<?=implode("&nbsp;/&nbsp;", $arProperty["DISPLAY_VALUE"]);?>
-		<?else:?>
+        <?php
+        else:?>
 			<?=$arProperty["DISPLAY_VALUE"];?>
-		<?endif?>
+        <?php endif?>
 		<br />
-	<?endforeach;
+    <?php endforeach;
 	if(array_key_exists("USE_SHARE", $arParams) && $arParams["USE_SHARE"] == "Y")
 	{
 		?>
 		<div class="news-detail-share">
 			<noindex>
-			<?
+                <?php
 			$APPLICATION->IncludeComponent("bitrix:main.share", "", array(
 					"HANDLERS" => $arParams["SHARE_HANDLERS"],
 					"PAGE_URL" => $arResult["~DETAIL_PAGE_URL"],
@@ -91,10 +122,11 @@ $this->setFrameMode(true);
 			?>
 			</noindex>
 		</div>
-		<?
+        <?php
 	}
 	?>
 </div>
+<<<<<<< HEAD
 <?php if ($arParams["DISPLAY_REPORT_AJAX"]=="Y"){?>
     <?php
     CJSCore::Init(array("jquery"));
@@ -119,3 +151,5 @@ $this->setFrameMode(true);
 
 
 <?php }?>
+=======
+>>>>>>> origin/master
