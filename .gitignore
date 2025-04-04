@@ -2,3 +2,5 @@
 !/bitrix/php_interface/
 /upload
 /.idea
+composer.phar
+/vendor/
