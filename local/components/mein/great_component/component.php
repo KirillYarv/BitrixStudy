@@ -2,7 +2,7 @@
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
-if($this->startResultCache()) {
+if($this->StartResultCache()) {
     $arParams['X'] = doubleval($arParams['X']);
 
     $arResult['Y'] = $this->f($arParams['X']);
@@ -10,6 +10,6 @@ if($this->startResultCache()) {
     $this->includeComponentTemplate();
 }
 else{
-    $this->AbortResultCahce();
+    $this->AbortResultCache();
 }
 

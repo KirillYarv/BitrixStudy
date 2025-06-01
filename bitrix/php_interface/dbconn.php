@@ -21,4 +21,3 @@ define("BX_CRONTAB_SUPPORT", true);
 
 define("SHORT_INSTALL", true);
 define("VM_INSTALL", true);
-define("BX_COMP_MANAGED_CACHE", true);

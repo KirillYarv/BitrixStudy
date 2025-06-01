@@ -6,10 +6,7 @@ $arComponentDescription = array(
     "CACHE_PATH" => "Y",
     "PATH" => array(
         "ID" => "exam2",
-<<<<<<< HEAD
         "NAME" => GetMessage("EX2_DIR"),
-=======
         "NAME" => GetMessage("COMP_EX2_DIR"),
->>>>>>> origin/master
     ),
 );
